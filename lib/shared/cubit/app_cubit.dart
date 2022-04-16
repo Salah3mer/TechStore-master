@@ -80,8 +80,7 @@ class AppCubit extends Cubit<AppStates> {
   List<ProductModel> favProduct = [];
   List<bool> fav = [];
 
-  getProduct({
-    @required String token}) {
+  getProduct() {
     emit(GetProductLoadingState());
     FirebaseFirestore.instance.collection('product').get().then((value) {
       value.docs.forEach((element) {
