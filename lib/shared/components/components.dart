@@ -196,10 +196,11 @@ Widget homeGrid(  model,context,index) => Container(
         Row(
           children: [
             Text(
-              '${model.price.round()}',
+              '${model.price.round()} EGP',
               style: const TextStyle(
                   fontSize: 12,
-                  color: Colors.lightBlue,
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
                   overflow: TextOverflow.ellipsis),
               maxLines: 1,
             ),

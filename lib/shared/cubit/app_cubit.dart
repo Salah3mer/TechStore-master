@@ -79,6 +79,7 @@ class AppCubit extends Cubit<AppStates> {
   List<ProductModel> product = [];
   List<ProductModel> favProduct = [];
   List<bool> fav = [];
+  int favIndex;
 
   getProduct() {
     emit(GetProductLoadingState());
@@ -118,6 +119,8 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   List<ProductModel> catproduct = [];
+  int catProductIndex;
+
   int catIndex;
   int currentProductIndex;
 

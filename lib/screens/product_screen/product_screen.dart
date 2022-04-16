@@ -9,6 +9,7 @@ import 'package:tech/shared/styles/icon_broken.dart';
 class ProductScreen extends StatelessWidget {
   var search = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
@@ -131,7 +132,7 @@ class ProductScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '\$ ${c.product[c.currentProductIndex].price}',
+                                          ' ${c.product[c.currentProductIndex].price} EGP',
                                           style: const TextStyle(
                                             color: Colors.green,
                                             fontSize: 18,

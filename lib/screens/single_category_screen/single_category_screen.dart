@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech/screens/category_screen/category_screen.dart';
@@ -52,10 +53,17 @@ class SingleCategoryScreen extends StatelessWidget {
                       c.catproduct.length,
                           (index) => InkWell(
                             onTap: (){
-                              c.currentProductIndex=index;
-                              navegatTo(context, ProductScreen());
-                            },
-                              child: homeGrid(c.catproduct[index],context,index)),
+                              for(int i =0 ;i<=c.product.length;i++){
+                                if(c.catproduct[index].id == c.product[i].id){
+                                  c.favIndex =i;
+                                  c.currentProductIndex=i;
+                                  navegatTo(context, ProductScreen());
+                                  print(i);
+                                }
+                              }
+
+                              },
+                              child: CatGrid(c.catproduct[index],context,index)),
                     ),
                     crossAxisSpacing: 5,
                     mainAxisSpacing: 5,
@@ -69,6 +77,72 @@ class SingleCategoryScreen extends StatelessWidget {
 
       },
     );
+
   }
+  Widget CatGrid(  model,context,index) => Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(.06),
+          blurRadius: 20,
+          offset: const Offset(0, 5),
+        ),
+      ],),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child:Container(
+              width: double.infinity,
+              height: 170,
+              child: CachedNetworkImage(
+                imageUrl: model.urlImage,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                width: 42,
+                height: 42,
+                imageBuilder:(context, imageProvider)=>  Image(
+                  image: imageProvider,
+                  width: double.infinity,
+                  height: 170,
+                ),
+              ),
+            ),
+          ),
+          Text(
+            model.name,
+            style: const TextStyle(overflow: TextOverflow.ellipsis),
+            maxLines: 2,
+          ),
+          SizedBox(height: 5,),
+          Row(
+            children: [
+              Text(
+                '${model.price.round()} EGP',
+                style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.lightBlue,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis),
+                maxLines: 1,
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Spacer(),
+             Icon(IconBroken.Arrow___Right_2,color: Colors.lightBlue,),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+
 }
 
