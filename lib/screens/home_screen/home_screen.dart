@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
               return ConditionalBuilder(
-                condition: state is !GetBannerLoadingState,
+                condition: state is !GetUserSuccessState,
                 builder: (context)=>Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: SafeArea(

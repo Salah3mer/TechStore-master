@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,11 +80,14 @@ class AppCubit extends Cubit<AppStates> {
   List<ProductModel> favProduct = [];
   List<bool> fav = [];
 
-  getProduct({String token}) {
+  getProduct({
+    @required String token}) {
     emit(GetProductLoadingState());
     FirebaseFirestore.instance.collection('product').get().then((value) {
       value.docs.forEach((element) {
+
         product.add(ProductModel.fromJson(element.data()));
+        print(product[0].name);
         if (element['fav'].toString().contains(userdata.uId)) {
           fav.add(true);
         } else {

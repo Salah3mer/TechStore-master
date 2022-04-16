@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget
   Widget build(BuildContext context) {
 
           return BlocProvider(
-            create: (context)=>AppCubit()..getProduct(token: uId)..getCategory(token: uId)..getBanner(token: uId)..getUserData(uId),
+            create: (context)=>AppCubit()..getProduct()..getCategory(token: uId)..getBanner(token: uId)..getUserData(uId),
             child:BlocConsumer<AppCubit,AppStates>(
             listener: (context,state){},
             builder: (context,state){
