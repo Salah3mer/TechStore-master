@@ -21,19 +21,16 @@ class SingleCategoryScreen extends StatelessWidget {
         String titel =c.category[c.catIndex].name;
         return Scaffold(
           appBar: AppBar(
-            title: Text('${titel}',style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold
-            ),),
+            title: Text('${titel}',style: Theme.of(context).appBarTheme.titleTextStyle),
             centerTitle:true,
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             elevation: 0,
-            leading: IconButton(color: Colors.blueGrey,
+            leading: IconButton(
               onPressed: (){
               navegatBack(context, CategoryScreen());
               },
               icon:Icon( IconBroken.Arrow___Left_Circle,
-              color: Colors.black,
+               color: c.isDark==false?Colors.black:Colors.white,
                 size: 35,
               )
             ),
@@ -81,7 +78,7 @@ class SingleCategoryScreen extends StatelessWidget {
   }
   Widget CatGrid(  model,context,index) => Container(
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: Theme.of(context).backgroundColor,
       borderRadius: BorderRadius.circular(30),
       boxShadow: [
         BoxShadow(
@@ -93,6 +90,7 @@ class SingleCategoryScreen extends StatelessWidget {
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -117,10 +115,11 @@ class SingleCategoryScreen extends StatelessWidget {
           ),
           Text(
             model.name,
-            style: const TextStyle(overflow: TextOverflow.ellipsis),
-            maxLines: 2,
+            style: Theme.of(context).textTheme.bodyText1,
+              maxLines: 2,
+            overflow: TextOverflow.ellipsis
+
           ),
-          SizedBox(height: 5,),
           Row(
             children: [
               Text(

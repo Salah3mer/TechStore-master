@@ -13,7 +13,7 @@ class HomeLayout extends StatelessWidget {
           var c = AppCubit.get(context);
           Size size = MediaQuery.of(context).size;
           return Scaffold(
-            backgroundColor: Colors.grey.shade50,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: Stack(
               children: [
               c.screens[c.currentIndex],
@@ -23,7 +23,7 @@ class HomeLayout extends StatelessWidget {
                   margin: const EdgeInsets.all(20),
                   height: size.width * .155,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(.15),
@@ -64,18 +64,12 @@ class HomeLayout extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey[50],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Icon(
-                              c.listOfIcons[index],
-                              size: size.width * .076,
-                              color: index == c.currentIndex
-                                  ? Colors.lightBlue
-                                  : Colors.blueGrey,
-                            ),
+                          Icon(
+                            c.listOfIcons[index],
+                            size: size.width * .076,
+                            color: index == c.currentIndex
+                                ? Colors.lightBlue
+                                : Colors.blueGrey,
                           ),
                           SizedBox(height: size.width * .03),
                         ],

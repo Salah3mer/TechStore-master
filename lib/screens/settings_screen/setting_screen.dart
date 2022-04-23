@@ -10,11 +10,7 @@ import 'package:tech/shared/cubit/app_states.dart';
 import 'package:tech/shared/styles/icon_broken.dart';
 
 class SettingScreen extends StatelessWidget {
-  var name = TextEditingController();
-  var email = TextEditingController();
-  var phone = TextEditingController();
-  var pass = TextEditingController();
-  var address = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
@@ -30,7 +26,7 @@ class SettingScreen extends StatelessWidget {
                         c.currentIndex=0;
                         navegatToAndFinsh(context, LoginScreen()).then((value) {
                           c.signOut();
-                          CashHelper.removeData(key: uId);
+
                         });
                       },
                       child: const Text('logOut'),
@@ -40,7 +36,10 @@ class SettingScreen extends StatelessWidget {
                        navegatTo(context, UpdateProfile());
                       },
                       child: const Text('update'),
-                    )
+                    ),
+                    Switch(value: c.isDark, onChanged:(val){
+                      c.changeMood(shareMood: val);
+                    } )
 
                   ],
                 ),

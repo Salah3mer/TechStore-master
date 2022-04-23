@@ -1,4 +1,5 @@
 import 'package:conditional_builder/conditional_builder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech/layout/home_layout.dart';
@@ -6,6 +7,7 @@ import 'package:tech/screens/login_screen/cubit/login_cubit.dart';
 import 'package:tech/screens/register_screen/register_screen.dart';
 import 'package:tech/shared/cash_helper.dart';
 import 'package:tech/shared/components/components.dart';
+import 'package:tech/shared/cubit/app_cubit.dart';
 import 'package:tech/shared/styles/icon_broken.dart';
 
 import 'cubit/login_state.dart';
@@ -82,9 +84,9 @@ class LoginScreen extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height / 1.42,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
+                    decoration:  BoxDecoration(
+                      color:Theme.of(context).backgroundColor,
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
@@ -99,21 +101,15 @@ class LoginScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:[
                               const SizedBox(height: 5,),
-                              const Padding(
-                                padding:  EdgeInsets.all(15.0),
-                                child: Text('Login  ',style: TextStyle(
-                                  fontSize: 30,
-                                    fontWeight: FontWeight.bold
-                                ),),
+                               Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text('Login  ',style:Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold),),
                               ),
                               const SizedBox(height: 30,),
 
-                              const Padding(
+                               Padding(
                                 padding: const EdgeInsets.only(left: 20),
-                                child: Text('UserName',style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
-                                ),),
+                                child: Text('UserName',style: Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold),),
                               ),
                               const SizedBox(height: 10),
 
@@ -132,12 +128,9 @@ class LoginScreen extends StatelessWidget {
                                       return 'Enter a valid email address';
                                   }),
                               const  SizedBox(height: 30,),
-                              const Padding(
+                               Padding(
                                 padding:  EdgeInsets.only(left: 20),
-                                child: Text('Password',style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
-                                ),),
+                                child: Text('Password',style: Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold),),
                               ),
                               const  SizedBox(height: 10),
                               myFormField(
@@ -175,7 +168,7 @@ class LoginScreen extends StatelessWidget {
                                 condition: state is ! LoginLoadingState,
                                 builder:(context)=> defaultButton(text:'Login',function: (){
                                 if(formkey.currentState.validate()){
-                                  c.userLogin(email: email.text,pass: pass.text);
+                                  c.userLogin(email: email.text,pass: pass.text,);
                                 }
                                 }),
                                 fallback: (context) =>const Center(child: CircularProgressIndicator()),

@@ -1,11 +1,8 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tech/screens/login_screen/login_screen.dart';
 import 'package:tech/screens/settings_screen/setting_screen.dart';
-import 'package:tech/shared/cash_helper.dart';
 import 'package:tech/shared/components/components.dart';
-import 'package:tech/shared/components/const.dart';
 import 'package:tech/shared/cubit/app_cubit.dart';
 import 'package:tech/shared/cubit/app_states.dart';
 import 'package:tech/shared/styles/icon_broken.dart';
@@ -32,21 +29,21 @@ class UpdateProfile extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: Colors.white,
-            title: const Text(
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+            title:  Text(
               'Edit Profile ',
-              style: TextStyle(color: Colors.black),
+              style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
             leading: IconButton(
               color: Colors.black,
               iconSize: 30,
-              icon: const Icon(IconBroken.Arrow___Left_Circle),
+              icon:  Icon(IconBroken.Arrow___Left_Circle,color: Theme.of(context).appBarTheme.iconTheme.color,),
               onPressed: () {
                 navegatBack(context, SettingScreen());
               },
             ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SafeArea(
             child: Form(
               key: formkey,
@@ -68,7 +65,7 @@ class UpdateProfile extends StatelessWidget {
                               backgroundImage: c.profileImage != null
                                   ? FileImage(c.profileImage)
                                   : NetworkImage(
-                                      c.userdata.image,
+                                      c.userdata.image!=null?c.userdata.image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQagAOppyMeA7F5Dv98mR8mvCbPtCXO5bI_F-Q3aYg21g&s',
                                     ),
                             ),
                           ),

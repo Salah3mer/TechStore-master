@@ -39,7 +39,7 @@ dependencies:
   flutter_bloc: ^7.1.0
   fluttertoast: ^8.0.8
   conditional_builder: ^1.0.2
-  shared_preferences: ^2.0.8
+  shared_preferences: ^2.0.10
   carousel_slider: ^4.0.0
   cached_network_image: ^3.1.0
   image_picker: ^0.8.4+11

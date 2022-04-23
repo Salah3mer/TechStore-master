@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder/conditional_builder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:tech/models/category_model.dart';
 import 'package:tech/screens/cart_screen/cart_screen.dart';
 import 'package:tech/screens/product_screen/product_screen.dart';
@@ -33,31 +36,32 @@ class HomeScreen extends StatelessWidget {
                           offset: const Offset(0, 5),
                         ),
                       ],
-                      color: Colors.white,
+                      color:Theme.of(context).backgroundColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
                         children: [
-                          Container(
-                            width: 40,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                              image: NetworkImage(model.urlImage),
-                              fit: BoxFit.fitHeight,
-                            )),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
                           Expanded(
+                            flex: 1,
+                            child: Container(
+                              width: 40,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                image: NetworkImage(model.urlImage),
+                                fit: BoxFit.fitHeight,
+                              )),
+                            ),
+                          ),
+                          SizedBox(width: 5,),
+                          Expanded(
+                            flex: 2,
                             child: Text(
                               model.name,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
+                              style:Theme.of(context).textTheme.bodyText1,
+                              maxLines: 1,
+
                             ),
                           ),
                         ],
@@ -65,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
               return ConditionalBuilder(
-                condition: state is !GetUserSuccessState,
+                condition: state is !GetProductLoadingState,
                 builder: (context)=>Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: SafeArea(
@@ -88,7 +92,8 @@ class HomeScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(40)
                                     ),
                                     child: CachedNetworkImage(
-                                      imageUrl: c.userdata.image,
+                                      imageUrl:c.userdata.image!=null?c.userdata.image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQagAOppyMeA7F5Dv98mR8mvCbPtCXO5bI_F-Q3aYg21g&s',
+
                                       fit: BoxFit.cover,
                                       placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                                       errorWidget: (context, url, error) => Icon(Icons.error),
@@ -106,13 +111,13 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   'Hi ${c.userdata.name} !',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                                 const Spacer(),
                                 Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(30),
-                                        color: Colors.white,
+                                        color:Theme.of(context).backgroundColor,
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.black.withOpacity(.06),
@@ -145,13 +150,15 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ]),
                               child: myFormField(
+                                  labelColor:  c.isDark==false?Colors.black:Colors.white30,
                                   label: 'Search',
                                   readonly: true,
                                   onTap:(){
                                     navegatTo(context, SearchScreen());
                                   } ,
                                   prefix: IconBroken.Search,
-                                  myColor: Colors.white)),
+                                  prefixColor:  c.isDark==false?Colors.black:Colors.white30,
+                                  myColor: c.isDark==false?Colors.white: HexColor('1e2336'))),
                           const SizedBox(
                             height: 15,
                           ),
@@ -182,9 +189,9 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(
                             height: 15,
                           ),
-                          const Text(
+                           Text(
                             'Categories',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                            style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 20,fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 10,
@@ -217,9 +224,9 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text(
+                           Text(
                             'All Product',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                            style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 20,fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 10,

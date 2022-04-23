@@ -25,12 +25,12 @@ class CartScreen extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text("My Cart",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600,color: Colors.black),
+              style:Theme.of(context).appBarTheme.titleTextStyle,
             ),
-            backgroundColor: Colors.white,
+            backgroundColor:Theme.of(context).appBarTheme.backgroundColor,
             elevation: 0,
             leading: IconButton(
-              icon: Icon(IconBroken.Arrow___Left_2,color: Colors.indigo,size: 35,),
+              icon: Icon(IconBroken.Arrow___Left_2,color: Theme.of(context).appBarTheme.iconTheme.color,size: 35,),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -88,7 +88,7 @@ class CartScreen extends StatelessWidget {
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
-                        color: Colors.grey[100],
+                        color: Theme.of(context).backgroundColor,
                       ),
                       child: Row(
                         children: [
@@ -124,7 +124,7 @@ class CartScreen extends StatelessWidget {
                                       Expanded(
                                         child: Text(
                                           c.cartItem[index].name,
-                                          style: TextStyle(fontSize: 14),
+                                          style: Theme.of(context).textTheme.bodyText1,
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                         ),
@@ -222,7 +222,7 @@ class CartScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Total:',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                        Text('Total:',style:Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold),),
 
                         Text(
                           '${c.totalPrice(c.cartItem)} EGP',
@@ -282,7 +282,7 @@ class CartScreen extends StatelessWidget {
               ),
             ),
             elevation: 10,
-            color: Colors.white,
+            color: Theme.of(context).scaffoldBackgroundColor,
           ),
         );
       },

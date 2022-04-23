@@ -4,6 +4,7 @@ import 'package:tech/layout/home_layout.dart';
 import 'package:tech/screens/login_screen/login_screen.dart';
 import 'package:tech/shared/components/components.dart';
 import 'package:tech/shared/components/const.dart';
+import 'package:tech/shared/cubit/app_cubit.dart';
 class SplashScreen extends StatefulWidget {
 
   @override
@@ -11,6 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 class _SplashScreenState extends State<SplashScreen> {
   void initState(){
+    AppCubit.get(context).getProduct();
     Widget widget;
     if(uId==null){
       widget = LoginScreen();
@@ -25,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:Theme.of(context).backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(

@@ -21,12 +21,12 @@ class FavoriteScreen extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text("Favourites",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600,color: Colors.black),
+              style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             elevation: 0,
             leading: IconButton(
-              icon: Icon(IconBroken.Arrow___Left_2,color: Colors.indigo,size: 35,),
+              icon: Icon(IconBroken.Arrow___Left_2,color: Theme.of(context).appBarTheme.iconTheme.color,size: 35,),
               onPressed: () {
                 c.currentIndex=0;
                 c.changeBottomNav(c.currentIndex);
@@ -49,8 +49,7 @@ class FavoriteScreen extends StatelessWidget {
                       radius: 22.5,
                       child:  CachedNetworkImage(
                         imageUrl:
-                        c.userdata.image
-                        ,
+                        c.userdata.image!=null?c.userdata.image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQagAOppyMeA7F5Dv98mR8mvCbPtCXO5bI_F-Q3aYg21g&s',
                         placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => Icon(Icons.error),
                         width: 42,
@@ -88,7 +87,7 @@ class FavoriteScreen extends StatelessWidget {
                         clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),
-                          color: Colors.grey[100],
+                         color: Theme.of(context).backgroundColor,
                         ),
                         child: Row(
                           children: [
@@ -121,7 +120,7 @@ class FavoriteScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       c.product[index].name,
-                                      style: TextStyle(fontSize: 14),
+                                      style: Theme.of(context).textTheme.bodyText1,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                     ),

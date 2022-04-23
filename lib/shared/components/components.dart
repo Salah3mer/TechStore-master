@@ -18,7 +18,6 @@ void navegatBack(context, widget) =>
     Navigator.pop(context, MaterialPageRoute(builder: (context) => widget));
 
 Widget myFormField({@required TextEditingController controller,
-
   String label,
   String hint,
   Function validate,
@@ -35,6 +34,8 @@ Widget myFormField({@required TextEditingController controller,
   bool autofocus = false,
   Color myColor,
   bool readonly = false,
+  Color labelColor,
+  Color prefixColor,
   bool isPassword = false,}) =>
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -52,13 +53,15 @@ Widget myFormField({@required TextEditingController controller,
         maxLength: maxleanth,
         decoration: InputDecoration(
 
-          hintStyle: const TextStyle(fontWeight: FontWeight.normal),
+          hintStyle: const TextStyle(fontWeight: FontWeight.normal,),
           fillColor: myColor != null ? myColor : Colors.grey[100],
           filled: true,
           labelText: label,
           hintText: hint,
+          labelStyle: TextStyle(color: labelColor),
           prefixIcon: Icon(
             prefix,
+            color: prefixColor,
           ),
           suffixIcon: suffix != null
               ? IconButton(
@@ -154,7 +157,7 @@ Color choseColor(FlutterToastState state) {
 
 Widget homeGrid(  model,context,index) => Container(
   decoration: BoxDecoration(
-      color: Colors.white,
+      color: Theme.of(context).backgroundColor,
       borderRadius: BorderRadius.circular(30),
       boxShadow: [
         BoxShadow(
@@ -166,62 +169,65 @@ Widget homeGrid(  model,context,index) => Container(
   child: Padding(
     padding: const EdgeInsets.symmetric(horizontal: 10.0),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(5),
-          child:Container(
-            width: double.infinity,
-            height: 170,
-            child: CachedNetworkImage(
-              imageUrl: model.urlImage,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-              width: 42,
-              height: 42,
-              imageBuilder:(context, imageProvider)=>  Image(
-                image: imageProvider,
-                width: double.infinity,
-                height: 170,
+        Expanded(
+          flex: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child:Container(
+              width: double.infinity,
+              height: double.infinity,
+              child: CachedNetworkImage(
+                imageUrl: model.urlImage,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                width: 42,
+                height: 42,
+                imageBuilder:(context, imageProvider)=>  Image(
+                  image: imageProvider,
+                  width: double.infinity,
+                ),
               ),
             ),
           ),
         ),
-        Text(
-          model.name,
-          style: const TextStyle(overflow: TextOverflow.ellipsis),
-          maxLines: 2,
-        ),
-        Row(
-          children: [
-            Text(
-              '${model.price.round()} EGP',
-              style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                  overflow: TextOverflow.ellipsis),
-              maxLines: 1,
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Spacer(),
-            IconButton(
-                onPressed: () {
-               AppCubit.get(context).changeFav(model.id,index)  ;
-                },
-                icon:AppCubit.get(context).fav[index]==false? Icon(
-                    IconBroken.Heart
-                ):Container(
-                  clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Icon(IconBroken.Heart,color: Colors.white,))),
-          ],
+        Expanded(
+          flex: 1,
+          child: Column(
+            children: [
+              Text(
+                model.name,
+                style:Theme.of(context).textTheme.bodyText1,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              Row(
+                children: [
+                  Text(
+                    '${model.price.round()} EGP',
+                    style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis),
+                    maxLines: 1,
+                  ),
+                  Spacer(),
+                  IconButton(
+                      onPressed: () {
+                     AppCubit.get(context).changeFav(model.id,index)  ;
+                      },
+                      icon:AppCubit.get(context).fav[index]==false? Icon(
+                          IconBroken.Heart,
+                          color: Theme.of(context).iconTheme.color,
+                      ):Icon(Icons.favorite,color: Colors.red,size: 30,)),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     ),

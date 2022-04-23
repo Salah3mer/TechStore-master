@@ -13,6 +13,7 @@ import 'package:tech/screens/category_screen/category_screen.dart';
 import 'package:tech/screens/favorite_screen/favorite_screen.dart';
 import 'package:tech/screens/home_screen/home_screen.dart';
 import 'package:tech/screens/settings_screen/setting_screen.dart';
+import 'package:tech/shared/cash_helper.dart';
 import 'package:tech/shared/components/const.dart';
 import 'package:tech/shared/styles/icon_broken.dart';
 import 'app_states.dart';
@@ -34,8 +35,8 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
+ void signOut() async {
+    CashHelper.removeData(key: uId);
     emit(UserSingOutSuccessState());
   }
 
@@ -81,13 +82,11 @@ class AppCubit extends Cubit<AppStates> {
   List<bool> fav = [];
   int favIndex;
 
-  getProduct() {
+  void getProduct() {
     emit(GetProductLoadingState());
     FirebaseFirestore.instance.collection('product').get().then((value) {
       value.docs.forEach((element) {
-
         product.add(ProductModel.fromJson(element.data()));
-        print(product[0].name);
         if (element['fav'].toString().contains(userdata.uId)) {
           fav.add(true);
         } else {
@@ -273,12 +272,13 @@ class AppCubit extends Cubit<AppStates> {
     cartItem.remove(p);
     emit(RemoveFromCartSucessState());
   }
+
   void order(String totalPrice, String address, List<ProductModel> product) {
     FirebaseFirestore.instance.collection('order').doc(userdata.uId).set({
       'totalPrice': totalPrice,
       'address': address,
     });
-    for (var p in product)
+    for (var p in product) {
       FirebaseFirestore.instance
           .collection('order')
           .doc(userdata.uId)
@@ -295,5 +295,24 @@ class AppCubit extends Cubit<AppStates> {
       }).catchError((err){
         emit(OrderErrorState());
       });
+    }
   }
+
+  bool isDark = false;
+
+  void changeMood({bool shareMood}) {
+    if (shareMood != null) {
+      isDark = shareMood;
+      emit(ChangeMoodState());
+    } else {
+      isDark = !isDark;
+      CashHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+        emit(ChangeMoodState());
+        print('isDark $value');
+      }).catchError((error){
+        print(error);
+      });
+    }
+  }
+
 }

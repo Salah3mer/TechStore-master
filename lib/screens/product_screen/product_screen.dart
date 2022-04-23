@@ -65,9 +65,9 @@ class ProductScreen extends StatelessWidget {
                   child: Container(
                     height: MediaQuery.of(context).size.height / 2.0,
                     width: MediaQuery.of(context).size.height,
-                    decoration:const  BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
+                    decoration:  BoxDecoration(
+                      color:Theme.of(context).backgroundColor,
+                      borderRadius:const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
@@ -93,9 +93,7 @@ class ProductScreen extends StatelessWidget {
                                       Expanded(
                                         child: Text(
                                           c.product[c.currentProductIndex].name,
-                                          style: TextStyle(
-                                              fontSize: 23,
-                                              fontWeight: FontWeight.bold),
+                                          style:Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold,fontSize: 22),
                                         ),
                                       ),
                                       IconButton(
@@ -121,14 +119,12 @@ class ProductScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                      const  Padding(
-                                          padding:  EdgeInsets.only(
+                                        Padding(
+                                          padding: const EdgeInsets.only(
                                               bottom: 10.0),
                                           child: Text(
                                             'About',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
+                                            style: Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold,fontSize: 18),
                                           ),
                                         ),
                                         Text(

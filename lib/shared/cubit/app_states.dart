@@ -35,3 +35,4 @@ class Subtract extends AppStates{}
 class OrderSucessState extends AppStates{}
 class GetOrderSucessState extends AppStates{}
 class OrderErrorState extends AppStates{}
+class ChangeMoodState extends AppStates{}

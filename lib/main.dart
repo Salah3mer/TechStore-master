@@ -9,6 +9,7 @@ import 'package:tech/shared/cash_helper.dart';
 import 'package:tech/shared/components/const.dart';
 import 'package:tech/shared/cubit/app_cubit.dart';
 import 'package:tech/shared/cubit/app_states.dart';
+import 'package:tech/shared/styles/theme.dart';
 
 import 'layout/home_layout.dart';
 
@@ -27,28 +28,31 @@ void main() async {
         statusBarIconBrightness: Brightness.dark,
       ));
   uId = CashHelper.getData(key: 'uId');
+  bool isDark=CashHelper.getBoolean(key: 'isDark');
 
-  runApp( MyApp(uId));
+
+  runApp( MyApp(uId,isDark));
 }
 
 class MyApp extends StatelessWidget
 {
   final String uId;
-   MyApp(this.uId );
+  final bool isDark;
+   MyApp(this.uId,this.isDark );
 
   @override
   Widget build(BuildContext context) {
 
           return BlocProvider(
-            create: (context)=>AppCubit()..getProduct()..getCategory(token: uId)..getBanner(token: uId)..getUserData(uId),
+            create: (context)=>AppCubit()..getCategory(token: uId)..getBanner(token: uId)..getUserData(uId)..changeMood(shareMood: isDark),
             child:BlocConsumer<AppCubit,AppStates>(
             listener: (context,state){},
             builder: (context,state){
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                ),
+                theme: lightMood(),
+                darkTheme: darkMood(),
+                themeMode: AppCubit.get(context).isDark ? ThemeMode.dark:ThemeMode.light,
                 home: SplashScreen(),
               );
             },

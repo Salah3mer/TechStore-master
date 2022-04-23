@@ -19,7 +19,7 @@ class CategoryScreen extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+                  color:Theme.of(context).backgroundColor,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(.06),
@@ -28,6 +28,7 @@ class CategoryScreen extends StatelessWidget {
                     ),
                   ]),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     width: 180,
@@ -40,18 +41,13 @@ class CategoryScreen extends StatelessWidget {
                       fit: BoxFit.fitHeight,
                     )),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
                   Text(
                     model.name,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                    style:Theme.of(context).textTheme.bodyText1.copyWith(fontWeight: FontWeight.bold),
                   ),
-                  const Spacer(),
-                  const Icon(
+                   Icon(
                     IconBroken.Arrow___Right_Circle,
-                    color: Colors.black,
+                    color: Theme.of(context).iconTheme.color,
                     size: 30,
                   ),
                   const SizedBox(
@@ -65,9 +61,9 @@ class CategoryScreen extends StatelessWidget {
           child: SafeArea(
             child: Column(
               children: [
-                const Text(
+                 Text(
                   'All Categories',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
                 ),
                 const SizedBox(
                   height: 15,
