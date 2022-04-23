@@ -92,7 +92,7 @@ ThemeData darkMood() =>
 
       ),
       iconTheme: const IconThemeData(
-        color: Colors.white
+          color: Colors.white
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
 
