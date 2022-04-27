@@ -168,7 +168,9 @@ class LoginScreen extends StatelessWidget {
                                 condition: state is ! LoginLoadingState,
                                 builder:(context)=> defaultButton(text:'Login',function: (){
                                 if(formkey.currentState.validate()){
-                                  c.userLogin(email: email.text,pass: pass.text,);
+                                  c.userLogin(email: email.text,pass: pass.text).then((value){
+                                    AppCubit.get(context).getUserData(FirebaseAuth.instance.currentUser.uid);
+                                  });
                                 }
                                 }),
                                 fallback: (context) =>const Center(child: CircularProgressIndicator()),

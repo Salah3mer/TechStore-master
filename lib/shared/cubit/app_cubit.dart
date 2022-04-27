@@ -298,7 +298,7 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  bool isDark = false;
+  bool isDark= false ;
 
   void changeMood({bool shareMood}) {
     if (shareMood != null) {

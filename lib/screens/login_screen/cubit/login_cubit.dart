@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tech/models/user_model.dart';
+import 'package:tech/shared/cubit/app_cubit.dart';
 import 'package:tech/shared/styles/icon_broken.dart';
 import 'login_state.dart';
 
@@ -17,13 +20,15 @@ class LoginCubit extends Cubit<LoginStates> {
     suffix = isPassword ? IconBroken.Hide : IconBroken.Show;
     emit(ChangeLoginEyeState());
   }
-  Future userLogin({String email, String pass}) async{
+  Future userLogin( {String email, String pass}) async{
     emit(LoginLoadingState());
     await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: pass).then((value) {
+        .signInWithEmailAndPassword(email: email, password: pass).then((value){
       emit(LoginSuccessState(value.user.uid));
+
     }).catchError((error) {
       emit(LoginErrorState(error.toString()));
     });
   }
+
 }
