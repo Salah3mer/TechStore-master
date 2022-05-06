@@ -194,6 +194,7 @@ class PaymentScreen extends StatelessWidget {
                                 ),
                                 myFormField(
                                     controller: credit,
+                                    type: TextInputType.number,
                                     maxleanth: 14,
                                     validate: (String val) {
                                       if (val.length<14) {
