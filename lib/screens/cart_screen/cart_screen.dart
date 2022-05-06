@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tech/screens/product_screen/product_screen.dart';
+import 'package:tech/screens/payment/payment.dart';
 import 'package:tech/shared/components/components.dart';
 import 'package:tech/shared/cubit/app_cubit.dart';
 import 'package:tech/shared/cubit/app_states.dart';
@@ -238,44 +238,7 @@ class CartScreen extends StatelessWidget {
                       height: 15,
                     ),
                     defaultButton(text: 'Check Out',function: (){
-                      showDialog(context: context, builder: (context) => Form(
-                        key: formkey,
-                        child: AlertDialog(
-                          titlePadding:EdgeInsets.all(5),
-                          title: Column(
-                            children: [
-                              Text('Submit Order'),
-                              SizedBox(height: 5,),
-                              Text(
-                                'Total Price ${c.totalPrice(c.cartItem)} EGP',
-                                style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-
-                            ],
-                          ),
-                          content: myFormField(controller: address,hint: 'Add Delivery Address',nonFocseBorder: true,validate: (String val) {
-                        if (val.isEmpty) {
-                        return 'Address can\'t  be Empty';
-                        }
-
-                          }),
-                          actions: [
-                            TextButton(onPressed: (){
-                              if(formkey.currentState.validate()){
-                                c.order(c.totalPrice(c.cartItem).toString(), address.text, c.cartItem);
-                              }
-                            }, child: Text('Submit')),
-                            TextButton(onPressed: (){
-                              navegatBack(context, CartScreen());
-                            }, child: Text('No')),
-                          ],
-
-                        ),
-                      ),);
+                    navegatTo(context, PaymentScreen());
                     })
                   ],
                 ),

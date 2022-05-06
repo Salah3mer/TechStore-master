@@ -36,3 +36,7 @@ class OrderSucessState extends AppStates{}
 class GetOrderSucessState extends AppStates{}
 class OrderErrorState extends AppStates{}
 class ChangeMoodState extends AppStates{}
+class ChangeRadio extends AppStates{}
+class SendCreditSucsess extends AppStates{}
+class SendCreditError extends AppStates{}
+

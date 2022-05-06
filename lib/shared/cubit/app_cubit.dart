@@ -16,6 +16,7 @@ import 'package:tech/screens/settings_screen/setting_screen.dart';
 import 'package:tech/shared/cash_helper.dart';
 import 'package:tech/shared/components/const.dart';
 import 'package:tech/shared/styles/icon_broken.dart';
+import '../components/components.dart';
 import 'app_states.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
@@ -273,10 +274,11 @@ class AppCubit extends Cubit<AppStates> {
     emit(RemoveFromCartSucessState());
   }
 
-  void order(String totalPrice, String address, List<ProductModel> product) {
+  void order(String totalPrice, String address, List<ProductModel> product,bool pay) {
     FirebaseFirestore.instance.collection('order').doc(userdata.uId).set({
       'totalPrice': totalPrice,
       'address': address,
+      'payed':pay
     });
     for (var p in product) {
       FirebaseFirestore.instance
@@ -292,10 +294,21 @@ class AppCubit extends Cubit<AppStates> {
         'quantity': p.quantity,
       }).then((value) {
         emit(OrderSucessState());
+        toast(text: 'Order Success', state: FlutterToastState.success);
       }).catchError((err){
         emit(OrderErrorState());
       });
     }
+  }
+
+  void sendCredit(String credit){
+    FirebaseFirestore.instance.collection('payment').doc(uId).set({
+      'credit':credit
+    }).then((value){
+      emit(SendCreditSucsess());
+    }).catchError((error){
+      emit(SendCreditError());
+    });
   }
 
   bool isDark= false ;
@@ -314,5 +327,10 @@ class AppCubit extends Cubit<AppStates> {
       });
     }
   }
-
+ int value =1;
+  void changeRadio(val){
+    value=val;
+    emit(ChangeRadio());
+  }
+  bool isVisible=false;
 }
