@@ -39,4 +39,7 @@ class ChangeMoodState extends AppStates{}
 class ChangeRadio extends AppStates{}
 class SendCreditSucsess extends AppStates{}
 class SendCreditError extends AppStates{}
+class GetSearchSuccessState extends AppStates{}
+class GetSearchErrorState extends AppStates{}
+class GetSearchLoadingState extends AppStates{}
 

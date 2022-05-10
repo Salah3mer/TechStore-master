@@ -56,6 +56,7 @@ ThemeData lightMood() =>
 
 ThemeData darkMood() =>
     ThemeData(
+
       backgroundColor: HexColor('1e2336'),
       textTheme:const TextTheme(
         bodyText1: TextStyle(

@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget
                 debugShowCheckedModeBanner: false,
                 theme: lightMood(),
                 darkTheme: darkMood(),
-                themeMode: AppCubit.get(context).isDark ? ThemeMode.dark:ThemeMode.light,
+                themeMode: AppCubit.get(context).isDark ? ThemeMode.light:ThemeMode.dark,
                 home: SplashScreen(),
               );
             },

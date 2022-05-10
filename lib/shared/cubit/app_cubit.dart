@@ -319,7 +319,7 @@ class AppCubit extends Cubit<AppStates> {
       emit(ChangeMoodState());
     } else {
       isDark = !isDark;
-      CashHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+      CashHefllper.putBoolean(key: 'isDark', value: isDark).then((value) {
         emit(ChangeMoodState());
         print('isDark $value');
       }).catchError((error){
@@ -333,4 +333,19 @@ class AppCubit extends Cubit<AppStates> {
     emit(ChangeRadio());
   }
   bool isVisible=false;
+  List<ProductModel> search =[];
+  void getSearch( text) {
+    search=[];
+    emit(GetSearchLoadingState());
+    FirebaseFirestore.instance.collection('product').where('name',isGreaterThanOrEqualTo: text).get().then((value) {
+      value.docs.forEach((element) {
+        search.add(ProductModel.fromJson(element.data()));
+        print(search[0].id);
+      });
+      emit(GetSearchSuccessState());
+    }).catchError((error) {
+      emit(GetSearchErrorState());
+      print(error.toString());
+    });
+  }
 }

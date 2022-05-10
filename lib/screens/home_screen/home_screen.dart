@@ -150,15 +150,16 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ]),
                               child: myFormField(
-                                  labelColor:  c.isDark==false?Colors.black:Colors.white30,
+                                  labelColor:  c.isDark?Colors.black:Colors.white30,
                                   label: 'Search',
                                   readonly: true,
                                   onTap:(){
+                                    c.search=[];
                                     navegatTo(context, SearchScreen());
                                   } ,
                                   prefix: IconBroken.Search,
-                                  prefixColor:  c.isDark==false?Colors.black:Colors.white30,
-                                  myColor: c.isDark==false?Colors.white: HexColor('1e2336'))),
+                                  prefixColor:  c.isDark?Colors.black:Colors.white30,
+                                  myColor: c.isDark?Colors.white: HexColor('1e2336'))),
                           const SizedBox(
                             height: 15,
                           ),

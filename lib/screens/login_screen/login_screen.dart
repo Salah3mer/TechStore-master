@@ -170,6 +170,7 @@ class LoginScreen extends StatelessWidget {
                                 if(formkey.currentState.validate()){
                                   c.userLogin(email: email.text,pass: pass.text).then((value){
                                     AppCubit.get(context).getUserData(FirebaseAuth.instance.currentUser.uid);
+                                    AppCubit.get(context).getProduct();
                                   });
                                 }
                                 }),
